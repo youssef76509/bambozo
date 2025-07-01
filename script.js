@@ -291,3 +291,18 @@ document.addEventListener('DOMContentLoaded', () => {
     showScreen('login');
     document.getElementById('num-teams').dispatchEvent(new Event('change'));
 });
+
+
+// زر اختبار Firebase
+document.getElementById("test-firebase-btn").addEventListener("click", async () => {
+  try {
+    await db.collection("test").add({
+      message: "Firebase is working!",
+      timestamp: new Date()
+    });
+    alert("✅ Firebase شغّال تمام وتم الحفظ!");
+  } catch (error) {
+    alert("❌ فيه مشكلة في الاتصال بـ Firebase");
+    console.error(error);
+  }
+});
