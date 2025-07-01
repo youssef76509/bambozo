@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة ألعاب بامبوزل (Firebase)</title>
+    
+    <!-- ربط ملف التصميم -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- استيراد الخط لتحسين شكل اللغة العربية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- شاشة تسجيل الدخول -->
+    <div id="login-container" class="container">
+        <h1>تسجيل دخول المعلمة</h1>
+        <form id="login-form">
+            <input type="text" id="login-code" placeholder="أدخل كود الدخول" required>
+            <button type="submit">دخول</button>
+            <p id="login-error" class="error"></p>
+        </form>
+    </div>
+
+    <!-- شاشة لوحة التحكم -->
+    <div id="dashboard-container" class="container" style="display: none;">
+        <h1>لوحة تحكم الألعاب</h1>
+        <button id="create-new-game-btn">إنشاء لعبة جديدة</button>
+        <hr>
+        <h2>الألعاب المحفوظة</h2>
+        <div id="loader" style="display: none;">جارِ تحميل الألعاب...</div>
+        <ul id="saved-games-list"></ul>
+    </div>
+
+    <!-- شاشة إعداد اللعبة -->
+    <div id="setup-container" class="container" style="display: none;">
+        <h1>إنشاء / تعديل لعبة</h1>
+        <form id="setup-form">
+            <label for="game-title">اسم اللعبة (للحفظ):</label>
+            <input type="text" id="game-title" placeholder="مثال: مراجعة الوحدة الأولى" required>
+            <label for="points-correct">نقاط الإجابة الصحيحة:</label>
+            <input type="number" id="points-correct" value="10" min="1" required>
+            <hr>
+            <h3>الأسئلة والمكافآت</h3>
+            <div id="questions-container"></div>
+            <button type="button" id="add-question-btn">أضف سؤالاً</button>
+            <button type="button" class="btn-points" id="add-powerup-btn">أضف مكافأة (نقاط)</button>
+            <button type="button" class="btn-warning" id="add-swap-powerup-btn">أضف مكافأة (تبادل نقاط)</button>
+            <hr>
+            <button type="submit" id="save-game-btn">حفظ اللعبة</button>
+            <button type="button" id="back-to-dashboard-btn">العودة للوحة التحكم</button>
+        </form>
+    </div>
+
+    <!-- شاشة إعداد الفرق -->
+    <div id="team-setup-container" class="container" style="display: none;">
+        <h1>إعداد الفرق للبدء</h1>
+        <form id="team-setup-form">
+            <h2 id="team-setup-game-title"></h2>
+            <label for="num-teams">عدد الفرق (2-6):</label>
+            <input type="number" id="num-teams" value="2" min="2" max="6" required>
+            <div id="team-names-container"></div>
+            <button type="submit">ابدأ اللعب!</button>
+            <button type="button" id="team-setup-back-btn">العودة للوحة التحكم</button>
+        </form>
+    </div>
+
+    <!-- شاشة اللعبة الرئيسية -->
+    <div id="game-container" class="container" style="display: none;">
+        <h1 id="game-title-display"></h1>
+        <div id="scoreboard"></div>
+        <div id="game-board"></div>
+        <button id="game-back-btn" class="btn-delete">إنهاء اللعبة والعودة</button>
+    </div>
+
+    <!-- النافذة المنبثقة -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">×</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- مكتبات Firebase (يجب أن تكون قبل ملف السكريبت الخاص بنا) -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
+
+    <!-- ملف الجافاسكريبت الخاص بنا (يجب أن يكون آخر شيء) -->
+    <script src="script.js"></script>
+</body>
+</html>
