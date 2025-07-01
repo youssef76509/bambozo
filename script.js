@@ -4,13 +4,13 @@
 
 // !!!!!! الصق كود firebaseConfig الخاص بك هنا !!!!!!
 const firebaseConfig = {
-  apiKey: "AIzaSy_REPLACE_WITH_YOUR_OWN_KEY",
-  authDomain: "your-project-id.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef123456",
-  measurementId: "G-ABCDEFGHIJ"
+  apiKey: "AIzaSyDPX_vO9JcQdGvG0tYjxTbTx8lSgi-mYXA",
+  authDomain: "bambozo-game.firebaseapp.com",
+  projectId: "bambozo-game",
+  storageBucket: "bambozo-game.appspot.com",
+  messagingSenderId: "675520904994",
+  appId: "1:675520904994:web:8122e8f3db1c2e8c917b0d",
+  measurementId: "G-VBN5EMX9BN"
 };
 
 // تهيئة تطبيق وخدمات Firebase
