@@ -1,4 +1,4 @@
-// إعداد Firebase
+// ✅ إعداد Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyA-shg2AbUOAtlLnzIezzcoiIAHCXcg5GY",
   authDomain: "bambozo3.firebaseapp.com",
@@ -10,66 +10,61 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// كودات الدخول
-const MASTER_CODE = '/YOUSSEF 982013/';
-const VALID_TEACHERS = ['heba 005', 'nermeen 005'];
-const STUDENTS = ['std001', 'std002', 'std003'];
+// ✅ تخزين الأكواد الديناميكية
+let validTeachers = [];
+let students = ['std001', 'std002', 'std003']; // تقدر تخلي الطلاب ديناميكيين كمان لو حبيت
 
-// تسجيل الدخول
+// ✅ تحميل المعلمين من Firestore
+db.collection("teachers").get().then(snapshot => {
+  validTeachers = snapshot.docs.map(doc => doc.data().code);
+});
+
+// ✅ دالة تسجيل الدخول
 function login() {
   const code = document.getElementById("login-code").value.trim();
   const error = document.getElementById("error-msg");
+
   localStorage.setItem("loginCode", code);
 
-  if (code === MASTER_CODE) {
+  if (code === '/YOUSSEF 982013/') {
     showAdmin();
-  } else if (VALID_TEACHERS.includes(code)) {
+  } else if (validTeachers.includes(code)) {
     showTeacher();
-  } else if (STUDENTS.includes(code)) {
+  } else if (students.includes(code)) {
     window.location.href = "student.html";
   } else {
     error.textContent = "⚠️ كود الدخول غير صحيح!";
   }
 }
 
-// إظهار لوحة المدير
+// ✅ إظهار لوحة المدير
 function showAdmin() {
-  const loginCode = localStorage.getItem("loginCode");
-  if (loginCode === MASTER_CODE) {
-    hideAllPages();
-    document.getElementById("admin-page").style.display = "block";
-  } else {
-    alert("🚫 غير مسموح لك بالدخول هنا!");
-    showLogin();
-  }
+  hideAllPages();
+  document.getElementById("admin-page").style.display = "block";
 }
 
-// إظهار لوحة المعلم
+// ✅ إظهار لوحة المعلم
 function showTeacher() {
-  const loginCode = localStorage.getItem("loginCode");
-  if (VALID_TEACHERS.includes(loginCode)) {
-    hideAllPages();
-    document.getElementById("teacher-page").style.display = "block";
-  } else {
-    alert("🚫 غير مسموح لك بالدخول هنا!");
-    showLogin();
-  }
+  hideAllPages();
+  document.getElementById("teacher-page").style.display = "block";
 }
 
-// إظهار صفحة تسجيل الدخول
+// ✅ إظهار صفحة تسجيل الدخول
 function showLogin() {
   hideAllPages();
   document.getElementById("login-page").style.display = "block";
 }
 
-// إخفاء كل الصفحات
+// ✅ إخفاء كل الصفحات
 function hideAllPages() {
-  document.getElementById("login-page").style.display = "none";
-  document.getElementById("admin-page").style.display = "none";
-  document.getElementById("teacher-page").style.display = "none";
+  const pages = ['login-page', 'admin-page', 'teacher-page'];
+  pages.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
 }
 
-// اختبار Firebase
+// ✅ اختبار الاتصال بـ Firebase
 function testFirebase() {
   db.collection("test").limit(1).get()
     .then(snapshot => {
@@ -84,7 +79,7 @@ function testFirebase() {
     });
 }
 
-// إضافة معلم
+// ✅ إضافة معلم إلى Firestore
 function addTeacher() {
   const name = document.getElementById("teacher-name").value.trim().toLowerCase();
   const number = document.getElementById("teacher-number").value.trim();
@@ -106,13 +101,14 @@ function addTeacher() {
     msg.textContent = "✅ تم إضافة المعلم بالكود: " + fullCode;
     document.getElementById("teacher-name").value = "";
     document.getElementById("teacher-number").value = "";
+    validTeachers.push(fullCode); // تحديث القائمة محليًا فورًا
   }).catch((error) => {
     msg.style.color = "red";
     msg.textContent = "❌ فشل في الإضافة: " + error.message;
   });
 }
 
-// تسجيل الخروج
+// ✅ تسجيل الخروج
 function logout() {
   localStorage.removeItem("loginCode");
   showLogin();
