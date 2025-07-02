@@ -1,22 +1,40 @@
-
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f5f5f5;
-  padding: 20px;
+  background-color: #f0f0f0;
   direction: rtl;
+  text-align: center;
+  padding: 50px;
 }
-h1, h2, h3 {
-  color: #222;
+
+.login-box {
+  background: white;
+  padding: 30px;
+  margin: auto;
+  width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
-input, select, button {
-  margin: 10px 0;
-  padding: 8px;
+
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
   font-size: 16px;
 }
-#teams-container .team-block {
-  background: #fff;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 8px;
+
+button {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
 }
